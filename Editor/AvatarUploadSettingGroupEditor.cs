@@ -18,8 +18,6 @@ namespace Anatawa12.ContinuousAvatarUploader.Editor
         private Dictionary<int, CreateDescriptorContainer> _inspectorsDoctionary = new Dictionary<int, CreateDescriptorContainer>();
         private List<CreateDescriptorContainer> _inspectors = new List<CreateDescriptorContainer>();
         private VisualElement _inspector;
-        private const int CreatePerFrame = 5;
-        private const int CreateInitial = 20;
 
         public override VisualElement CreateInspectorGUI()
         {
@@ -48,8 +46,7 @@ namespace Anatawa12.ContinuousAvatarUploader.Editor
                 EditorGUILayout.Space();
             });
 
-            RecreateInspectors(throttled: true);
-            CreateInspectorElementsThrottled();
+            RecreateInspectors();
 
             VRCAvatarDescriptor avatarDescriptor = null;
             var trailer = new IMGUIContainer(() =>
@@ -86,35 +83,7 @@ namespace Anatawa12.ContinuousAvatarUploader.Editor
             return root;
         }
 
-        private void CreateInspectorElementsThrottled()
-        {
-            var index = 0;
-
-            for (var i = 0; i < CreateInitial; i++)
-            {
-                if (index >= _inspectors.Count) return;
-                _inspectors[index].CreateInspectorElement();
-                index++;
-            }
-
-            void CreateFrame()
-            {
-                for (var i = 0; i < CreatePerFrame; i++)
-                {
-                    if (index >= _inspectors.Count) return;
-                    _inspectors[index].CreateInspectorElement();
-                    index++;
-                }
-
-                EditorApplication.delayCall += CreateFrame;
-            }
-
-            EditorApplication.delayCall += CreateFrame;
-        }
-
-        void RecreateInspectors() => RecreateInspectors(false);
-
-        void RecreateInspectors(bool throttled)
+        void RecreateInspectors()
         {
             _inspector.Clear();
             _inspectors.Clear();
@@ -128,7 +97,6 @@ namespace Anatawa12.ContinuousAvatarUploader.Editor
                     _inspectorsDoctionary.Add(instanceId,
                         container = new CreateDescriptorContainer(_asset, assetAvatar));
                     container.OnReorder += RecreateInspectors;
-                    if (!throttled) container.CreateInspectorElement();
                 }
 
                 _inspector.Add(container);
@@ -145,17 +113,43 @@ namespace Anatawa12.ContinuousAvatarUploader.Editor
     {
         public event Action OnReorder;
         private readonly AvatarUploadSetting _setting;
+        private readonly AvatarUploadSettingGroup _group;
         private readonly VisualElement _inspectorElementContainer;
+        private bool _isExpanded = false;
+        private bool _inspectorCreated = false;
 
         public CreateDescriptorContainer(AvatarUploadSettingGroup group, AvatarUploadSetting setting)
         {
             _setting = setting;
+            _group = group;
+            
+            // Foldout header with avatar info
             Add(new IMGUIContainer(() =>
             {
                 int index = System.Array.IndexOf(group.avatars, setting);
-                EditorGUILayout.LabelField($"Avatar #{index}");
+                string avatarName = setting != null ? setting.avatarName : "Unknown";
+                string displayName = string.IsNullOrEmpty(avatarName) ? $"Avatar #{index}" : $"Avatar #{index}: {avatarName}";
+                
+                EditorGUILayout.BeginHorizontal();
+                
+                bool newExpanded = EditorGUILayout.Foldout(_isExpanded, displayName, true, EditorStyles.foldoutHeader);
+                if (newExpanded != _isExpanded)
+                {
+                    _isExpanded = newExpanded;
+                    if (_isExpanded && !_inspectorCreated)
+                    {
+                        CreateInspectorElementInternal();
+                    }
+                    UpdateInspectorVisibility();
+                }
+                
+                EditorGUILayout.EndHorizontal();
             }));
+            
             Add(_inspectorElementContainer = new VisualElement());
+            _inspectorElementContainer.style.display = DisplayStyle.None;
+            _inspectorElementContainer.style.marginLeft = 15;
+            
             Add(new IMGUIContainer(() =>
             {
                 GUILayout.BeginHorizontal();
@@ -193,15 +187,38 @@ namespace Anatawa12.ContinuousAvatarUploader.Editor
 
                     OnReorder?.Invoke();
                 }
+                EditorGUI.EndDisabledGroup();
                 GUILayout.EndHorizontal();
                 HorizontalLine();
             }));
         }
 
+        private void UpdateInspectorVisibility()
+        {
+            _inspectorElementContainer.style.display = _isExpanded ? DisplayStyle.Flex : DisplayStyle.None;
+        }
+
+        private void CreateInspectorElementInternal()
+        {
+            if (_inspectorCreated) return;
+            _inspectorCreated = true;
+            _inspectorElementContainer.Add(new InspectorElement(_setting));
+        }
+
         public void CreateInspectorElement()
         {
-            if (_inspectorElementContainer.childCount != 0) return;
-            _inspectorElementContainer.Add(new InspectorElement(_setting));
+            // For compatibility with throttled creation - only create if expanded
+            if (_isExpanded && !_inspectorCreated)
+            {
+                CreateInspectorElementInternal();
+            }
+        }
+
+        public void ExpandAndCreate()
+        {
+            _isExpanded = true;
+            CreateInspectorElementInternal();
+            UpdateInspectorVisibility();
         }
 
         private static void HorizontalLine(float regionHeight = 18f, float lineHeight = 1f)
