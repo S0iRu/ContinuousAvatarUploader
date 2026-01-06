@@ -91,6 +91,12 @@ namespace Anatawa12.ContinuousAvatarUploader.Editor
                     var newObj = ScriptableObject.CreateInstance<AvatarUploadSetting>();
                     newObj.avatarDescriptor = new MaySceneReference(descriptor);
                     newObj.name = newObj.avatarName = descriptor.gameObject.name;
+                    
+                    // Set default values for PC Windows platform
+                    newObj.windows.enabled = true;
+                    newObj.windows.updateImage = true;
+                    newObj.windows.versioningEnabled = true;
+                    
                     return newObj;
                 })
                 .ToArray();
