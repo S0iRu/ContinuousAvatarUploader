@@ -10,8 +10,8 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using VRC.SDK3A.Editor;
-using VRC.SDK3.Avatars.Components;
 using VRC.SDKBase.Editor;
+using VRC.SDKBase.Editor.Api;
 
 namespace Anatawa12.ContinuousAvatarUploader.Editor
 {
@@ -238,14 +238,34 @@ namespace Anatawa12.ContinuousAvatarUploader.Editor
                 catch (Exception exception)
                 {
                     Debug.LogException(exception);
+
+                    string errorMessage;
+                    if (exception is not ApiErrorException apiErrorException)
+                    {
+                        errorMessage = exception.ToString();
+                    }
+                    else
+                    {
+                        var apiErrorMessage = apiErrorException.ErrorMessage;
+                        var statusCode = apiErrorException.StatusCode;
+                        var request = apiErrorException.HttpMessage.RequestMessage;
+
+                        errorMessage =
+                            $"Got ApiErrorException when uploading avatar: {request.Method} {request.RequestUri} failed with status code {statusCode}: {apiErrorMessage}";
+                        Debug.LogError(errorMessage);
+
+                        errorMessage += Environment.NewLine + apiErrorException;
+                    }
+
                     asset.uploadErrors.Add(new UploadErrorInfo
                     {
                         uploadingAvatar = avatarToUpload,
                         avatarName = avatarToUpload.name,
                         avatarDescriptor = avatarToUpload.avatarDescriptor,
                         targetPlatform = asset.uploadingTargetPlatform,
-                        message = exception.ToString()
+                        message = errorMessage
                     });
+
                     asset.Save();
                     WithTryCatch(() => OnUploadSingleAvatarFailed?.Invoke(asset, avatarToUpload, new List<Exception> { exception }));
 

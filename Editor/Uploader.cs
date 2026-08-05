@@ -744,12 +744,22 @@ namespace Anatawa12.ContinuousAvatarUploader.Editor
             list.Add(blueprint);
             SessionState.SetString(key, string.Join(";", list));
 
+            const string agreementCode = "content.copyright.owned";
+            const int agreementVersion = 1;
+            var checkResult = await VRCApi.CheckContentUploadConsent(new VRCAgreementCheckRequest
+            {
+                AgreementCode = agreementCode,
+                ContentId = blueprint,
+                Version = agreementVersion
+            });
+
+            if (checkResult.Agreed) return;
             await VRCApi.ContentUploadConsent(new VRCAgreement
             {
-                AgreementCode = "content.copyright.owned",
+                AgreementCode = agreementCode,
                 AgreementFulltext = AgreementText,
                 ContentId = blueprint,
-                Version = 1,
+                Version = agreementVersion,
             });
         }
 #else

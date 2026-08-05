@@ -9,7 +9,11 @@ The format is based on [Keep a Changelog].
 ## [Unreleased]
 ### Added
 
+- Handle `ApiErrorException` and provide details about request and api error during upload. [`#150`](https://github.com/anatawa12/ContinuousAvatarUploader/pull/150)
+
 ### Changed
+
+- Will check is copyright agreement already agree before send agree request. [`#151`](https://github.com/anatawa12/ContinuousAvatarUploader/pull/151)
 
 ### Deprecated
 
