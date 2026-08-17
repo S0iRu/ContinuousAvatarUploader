@@ -14,6 +14,8 @@ The format is based on [Keep a Changelog].
 ### Changed
 
 - Will check is copyright agreement already agree before send agree request. [`#151`](https://github.com/anatawa12/ContinuousAvatarUploader/pull/151)
+- Move Tools menu to `Tools/S0iRu/Continuous Avatar Uploader`
+- Move context menus under `S0iRu/Continuous Avatar Uploader`
 
 ### Deprecated
 

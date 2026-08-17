@@ -5,7 +5,7 @@ using UnityEngine.Serialization;
 
 namespace Anatawa12.ContinuousAvatarUploader.Editor
 {
-    [CreateAssetMenu(menuName = "Continuous Avatar Uploader/Avatar Upload Setting Group Group")]
+    [CreateAssetMenu(menuName = "S0iRu/Continuous Avatar Uploader/Avatar Upload Setting Group Group")]
     public class AvatarUploadSettingGroupGroup : AvatarUploadSettingOrGroup
     {
         [FormerlySerializedAs("avatars")] public AvatarUploadSettingOrGroup[] groups = Array.Empty<AvatarUploadSettingOrGroup>();

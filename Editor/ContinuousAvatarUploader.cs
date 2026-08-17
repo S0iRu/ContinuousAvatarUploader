@@ -42,7 +42,7 @@ namespace Anatawa12.ContinuousAvatarUploader.Editor
         private SerializedProperty _settingsOrGroups;
 
         [MenuItem("Window/Continuous Avatar Uploader")]
-        [MenuItem("Tools/Continuous Avatar Uploader")]
+        [MenuItem("Tools/S0iRu/Continuous Avatar Uploader")]
         private static void OpenWindowItem() => OpenWindow();
         public static ContinuousAvatarUploader OpenWindow() => GetWindow<ContinuousAvatarUploader>("ContinuousAvatarUploader");
 

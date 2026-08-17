@@ -9,7 +9,7 @@ namespace Anatawa12.ContinuousAvatarUploader.Editor
 {
     internal static class ContextMenus
     {
-        const string CreateMenuBasePath = "Assets/Create/Continuous Avatar Uploader/";
+        const string CreateMenuBasePath = "Assets/Create/S0iRu/Continuous Avatar Uploader/";
         const string GroupFromVariantsMenuPath = CreateMenuBasePath + "Group from Prefab Variants of the Prefab";
 
         [MenuItem(GroupFromVariantsMenuPath)]
@@ -43,7 +43,7 @@ namespace Anatawa12.ContinuousAvatarUploader.Editor
         private static bool ValidateCreateAvatarUploadSettingGroupFromPrefabVariants() => SelectionAreAvatarPrefabs();
 
         const string CreateFromSelection = CreateMenuBasePath + "Group from Selection";
-        const string CreateFromSelectionInGameObject = "GameObject/Continuous Avatar Uploader/Group from Selection";
+        const string CreateFromSelectionInGameObject = "GameObject/S0iRu/Continuous Avatar Uploader/Group from Selection";
 
         [MenuItem(CreateFromSelection)]
         [MenuItem(CreateFromSelectionInGameObject)]

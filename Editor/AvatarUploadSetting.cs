@@ -16,7 +16,7 @@ namespace Anatawa12.ContinuousAvatarUploader.Editor
         internal abstract AvatarUploadSetting[] Settings { get; }
     }
 
-    [CreateAssetMenu(menuName = "Continuous Avatar Uploader/Avatar Upload Setting")]
+    [CreateAssetMenu(menuName = "S0iRu/Continuous Avatar Uploader/Avatar Upload Setting")]
     public class AvatarUploadSetting : AvatarUploadSettingOrGroup
     {
         public string avatarName;
