@@ -32,6 +32,7 @@
 また、0.3.0からは以下の作成方法が追加されました。
 - ヒエラルキー上でアバターを右クリックし、`S0iRu/Continuous Avatar Uploader/Group from Selection`を選択することで、選択したアバターを含む`Avatar Upload Setting Group`を作成することができます。
 - Project欄でアバターのPrefabを選択し、右クリックして`Create/S0iRu/Continuous Avatar Uploader/Group from Selection`を選択することで、選択したアバターを含む`Avatar Upload Setting Group`を作成することができます。
+- ヒエラルキーと Project のどちらでも、`Group from Selection (Reverse)`を選ぶと、同じ選択を逆順で登録できます。
 - Project欄でアバターのPrefabを選択し、右クリックして`Create/S0iRu/Continuous Avatar Uploader/Group of Variants from Prefab`を選択することで、選択したプレハブの子孫のPrefab Variantを含む`Avatar Upload Setting Group`を作成することができます。
 
 次にそれそれのアバターの設定を行います。これはどちらのファイルでも共通です。

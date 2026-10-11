@@ -44,11 +44,18 @@ namespace Anatawa12.ContinuousAvatarUploader.Editor
 
         const string CreateFromSelection = CreateMenuBasePath + "Group from Selection";
         const string CreateFromSelectionInGameObject = "GameObject/S0iRu/Continuous Avatar Uploader/Group from Selection";
+        const string CreateFromSelectionReverse = CreateMenuBasePath + "Group from Selection (Reverse)";
+        const string CreateFromSelectionReverseInGameObject = "GameObject/S0iRu/Continuous Avatar Uploader/Group from Selection (Reverse)";
 
         [MenuItem(CreateFromSelection)]
         [MenuItem(CreateFromSelectionInGameObject)]
         private static void CreateAvatarUploadSettingGroupFromSelection() =>
             OnceFilter(() => CreateFromDescriptors(() => GetSelectedAvatarDescriptors().ToArray()));
+
+        [MenuItem(CreateFromSelectionReverse)]
+        [MenuItem(CreateFromSelectionReverseInGameObject)]
+        private static void CreateAvatarUploadSettingGroupFromSelectionReversed() =>
+            OnceFilter(() => CreateFromDescriptors(() => GetSelectedAvatarDescriptors().Reverse().ToArray()));
 
         [MenuItem(CreateFromSelection, true)]
         [MenuItem(CreateFromSelectionInGameObject, true)]
@@ -56,6 +63,11 @@ namespace Anatawa12.ContinuousAvatarUploader.Editor
         {
             return SelectionAreAvatarDescriptors();
         }
+
+        [MenuItem(CreateFromSelectionReverse, true)]
+        [MenuItem(CreateFromSelectionReverseInGameObject, true)]
+        private static bool ValidateCreateAvatarUploadSettingGroupFromSelectionReversed() =>
+            SelectionAreAvatarDescriptors();
 
         // for GameObject/ menu, the handler will be called multiple times (selection count times)
         //   so we need to filter it
