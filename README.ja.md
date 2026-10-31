@@ -11,10 +11,10 @@
 
 ## インストール方法
 
-1. ALCOM または VCC に、VPM リポジトリ [https://s0iru.github.io/vpm-repos/index.json][VPM-repo] を追加する。
+1. [このページ][VPM-repo]を開き、「ALCOM / VCC にこのリポジトリを追加」を押す。開かない場合は、ページに書いてある URL を ALCOM の「VPMリポジトリを追加」に貼る。
 2. Continuous Avatar Uploader を追加する。公開中の版はプレリリースなので、プロジェクトでプレリリースパッケージを表示する。
 
-[VPM-repo]: https://s0iru.github.io/vpm-repos/index.json
+[VPM-repo]: https://s0iru.github.io/vpm-repos/
 
 ## 使い方
 

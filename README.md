@@ -11,7 +11,7 @@ The tool to upload multiple avatars continuously with tagging version.
 
 ## Installation
 
-1. In ALCOM or VCC, add the VPM repository [https://s0iru.github.io/vpm-repos/index.json][VPM-repo].
+1. Open [this page][VPM-repo] and choose “ALCOM / VCC にこのリポジトリを追加”. If the link does not open an app, paste the repository URL shown on that page into ALCOM or VCC.
 2. Add Continuous Avatar Uploader. The current release is a prerelease, so show prerelease packages for the project.
 
-[VPM-repo]: https://s0iru.github.io/vpm-repos/index.json
+[VPM-repo]: https://s0iru.github.io/vpm-repos/
