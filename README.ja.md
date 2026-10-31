@@ -11,10 +11,10 @@
 
 ## インストール方法
 
-1. [このリンク][VCC-add-repo-link]をクリックしてanatawa12のレポジトリを追加する。
-2. VCCでContinuous Avatar Uploaderを追加する。
+1. ALCOM または VCC に、VPM リポジトリ [https://s0iru.github.io/vpm-repos/index.json][VPM-repo] を追加する。
+2. Continuous Avatar Uploader を追加する。公開中の版はプレリリースなので、プロジェクトでプレリリースパッケージを表示する。
 
-[VCC-add-repo-link]: https://vpm.anatawa12.com/add-repo
+[VPM-repo]: https://s0iru.github.io/vpm-repos/index.json
 
 ## 使い方
 
