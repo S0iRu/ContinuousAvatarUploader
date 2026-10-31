@@ -11,6 +11,9 @@ The format is based on [Keep a Changelog].
 
 - Add `Group from Selection (Reverse)` to register selected avatars in reverse order.
 - Handle `ApiErrorException` and provide details about request and api error during upload. [`#150`](https://github.com/anatawa12/ContinuousAvatarUploader/pull/150)
+- Allow user pause upload after current avatar uploaded. [`#156`](https://github.com/anatawa12/ContinuousAvatarUploader/pull/158)
+  - Or, automatically pause upload when any error occurred during build or upload.
+- "Free Memory Between Uploads" preference (default: enabled) that calls `UnloadUnusedAssets` and `GC.Collect` after each avatar upload to mitigate memory accumulation during long batch uploads. `#155`
 
 ### Changed
 
@@ -23,6 +26,12 @@ The format is based on [Keep a Changelog].
 ### Removed
 
 ### Fixed
+
+- VRCFury PC→Android parameter sync when uploading via CAU: set `VRC_SdkBuilder.ActiveBuildType` and invoke `OnSdkUpload*` callbacks. [`#145`](https://github.com/anatawa12/ContinuousAvatarUploader/issues/145)
+- `Configure Camera Position` button may not work from some inspector windows `#168`
+- Abort upload won't abort sleep between upload. [`#159`](https://github.com/anatawa12/ContinuousAvatarUploader/pull/159)
+- Compatibility with VRCSDK 3.10.6 `#169`
+  - CAU is depending on publicly accessible internal SDK members and there are breaking changes to publicly accessible internal SDK members.
 
 ### Security
 

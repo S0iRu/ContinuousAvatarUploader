@@ -9,11 +9,8 @@ The format is based on [Keep a Changelog].
 ## [Unreleased]
 ### Added
 
-- Handle `ApiErrorException` and provide details about request and api error during upload. [`#150`](https://github.com/anatawa12/ContinuousAvatarUploader/pull/150)
-
 ### Changed
 
-- Will check is copyright agreement already agree before send agree request. [`#151`](https://github.com/anatawa12/ContinuousAvatarUploader/pull/151)
 - Move Tools menu to `Tools/S0iRu/Continuous Avatar Uploader`
 - Move context menus under `S0iRu/Continuous Avatar Uploader`
 
@@ -24,6 +21,23 @@ The format is based on [Keep a Changelog].
 ### Fixed
 
 ### Security
+
+## [0.3.13-beta.2] - 2026-10-20
+### Fixed
+- Compatibility with VRCSDK 3.10.6 [`#169`](https://github.com/anatawa12/ContinuousAvatarUploader/pull/169)
+  - CAU is depending on publicly accessible internal SDK members and there are breaking changes to publicly accessible internal SDK members.
+
+## [0.3.13-beta.1] - 2026-10-14
+- Handle `ApiErrorException` and provide details about request and api error during upload. [`#150`](https://github.com/anatawa12/ContinuousAvatarUploader/pull/150)
+- Allow user pause upload after current avatar uploaded. [`#156`](https://github.com/anatawa12/ContinuousAvatarUploader/pull/158)
+  - Or, automatically pause upload when any error occurred during build or upload.
+- "Free Memory Between Uploads" preference (default: enabled) that calls `UnloadUnusedAssets` and `GC.Collect` after each avatar upload to mitigate memory accumulation during long batch uploads. [`#155`](https://github.com/anatawa12/ContinuousAvatarUploader/pull/155)
+
+- Will check is copyright agreement already agree before send agree request. [`#151`](https://github.com/anatawa12/ContinuousAvatarUploader/pull/151)
+
+- VRCFury PC→Android parameter sync when uploading via CAU: set `VRC_SdkBuilder.ActiveBuildType` and invoke `OnSdkUpload*` callbacks. [`#145`](https://github.com/anatawa12/ContinuousAvatarUploader/issues/145)
+- `Configure Camera Position` button may not work from some inspector windows [`#168`](https://github.com/anatawa12/ContinuousAvatarUploader/pull/168)
+- Abort upload won't abort sleep between upload. [`#159`](https://github.com/anatawa12/ContinuousAvatarUploader/pull/159)
 
 ## [0.3.12] - 2025-12-20
 ### Added
@@ -239,7 +253,9 @@ The format is based on [Keep a Changelog].
 ### Added
 - Basic features of ContinuousAvatarUploader
 
-[Unreleased]: https://github.com/anatawa12/ContinuousAvatarUploader/compare/v0.3.12...HEAD
+[Unreleased]: https://github.com/anatawa12/ContinuousAvatarUploader/compare/v0.3.13-beta.2...HEAD
+[0.3.13-beta.2]: https://github.com/anatawa12/ContinuousAvatarUploader/compare/v0.3.13-beta.1...v0.3.13-beta.2
+[0.3.13-beta.1]: https://github.com/anatawa12/ContinuousAvatarUploader/compare/v0.3.12...v0.3.13-beta.1
 [0.3.12]: https://github.com/anatawa12/ContinuousAvatarUploader/compare/v0.3.12-beta.1...v0.3.12
 [0.3.12-beta.1]: https://github.com/anatawa12/ContinuousAvatarUploader/compare/v0.3.11...v0.3.12-beta.1
 [0.3.11]: https://github.com/anatawa12/ContinuousAvatarUploader/compare/v0.3.11-beta.1...v0.3.11

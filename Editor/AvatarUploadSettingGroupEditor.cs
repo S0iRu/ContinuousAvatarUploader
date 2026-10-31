@@ -100,7 +100,7 @@ namespace Anatawa12.ContinuousAvatarUploader.Editor
                 if (!_inspectorsDoctionary.TryGetValue(instanceId, out var container))
                 {
                     _inspectorsDoctionary.Add(instanceId,
-                        container = new CreateDescriptorContainer(_asset, assetAvatar));
+                        container = new CreateDescriptorContainer(_asset, assetAvatar, this));
                     container.OnReorder += RecreateInspectors;
                 }
 
@@ -120,15 +120,16 @@ namespace Anatawa12.ContinuousAvatarUploader.Editor
         private readonly AvatarUploadSetting _setting;
         private readonly AvatarUploadSettingGroup _group;
         private readonly VisualElement _inspectorElementContainer;
+        private readonly UnityEditor.Editor _editor;
         private bool _isExpanded = false;
         private bool _inspectorCreated = false;
 
-        public CreateDescriptorContainer(AvatarUploadSettingGroup group, AvatarUploadSetting setting)
+        public CreateDescriptorContainer(AvatarUploadSettingGroup group, AvatarUploadSetting setting,
+            UnityEditor.Editor editor)
         {
             _setting = setting;
             _group = group;
-            
-            // Foldout header with avatar info
+            _editor = editor;
             Add(new IMGUIContainer(() =>
             {
                 int index = System.Array.IndexOf(group.avatars, setting);
@@ -207,7 +208,9 @@ namespace Anatawa12.ContinuousAvatarUploader.Editor
         {
             if (_inspectorCreated) return;
             _inspectorCreated = true;
-            _inspectorElementContainer.Add(new InspectorElement(_setting));
+            var inspectorElement = new InspectorElement(_setting);
+            _inspectorElementContainer.Add(inspectorElement);
+            inspectorElement.GetEditor()?.SetPropertyViewer(_editor.GetPropertyViewer());
         }
 
         public void CreateInspectorElement()
